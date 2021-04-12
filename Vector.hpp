@@ -28,10 +28,17 @@ namespace tinyMath
         T data[n] = {};
     };
 
-    template<class T, int n> T operator*(const vec<T, n>& lhs, const vec<T, n>& rhs) {
-        T ret = 0;
-        for(int i = n; i--; ret += lhs[i]*rhs[i]);
+    template<class T, int n> vec<T, n> operator*(const vec<T, n>& lhs, const vec<T, n>& rhs) {
+        vec<T,n> ret;
+        for(int i = n; i--; ret[i] = lhs[i] * rhs[i]);
         return ret;
+    }
+
+     template<class T, int n> vec<T, n> operator*=(vec<T, n>& lhs, const vec<T, n>& rhs) {
+        for(int i = 0; i < n; i++) {
+            lhs[i] = lhs[i] * rhs[i];
+        }
+        return lhs;
     }
 
 
@@ -41,10 +48,25 @@ namespace tinyMath
         return ret;
     }
 
+    template<class T, int n> vec<T, n> operator+=(vec<T, n>& lhs, const vec<T, n>& rhs){
+        for(int i = 0; i < n; i++) {
+            lhs[i] = lhs[i] + rhs[i];
+        }
+        return lhs;
+    }
+
+
     template<class T, int n> vec<T, n> operator-(const vec<T, n>& lhs, const vec<T, n>& rhs){
         vec<T, n> ret = lhs;
         for(int i = n; i--; ret[i] -= rhs[i]);
         return ret;
+    }
+
+    template<class T, int n> vec<T, n> operator-=(vec<T, n>& lhs, const vec<T, n>& rhs){
+        for(int i = 0; i < n; i++) {
+            lhs[i] = lhs[i] - rhs[i];
+        }
+        return lhs;
     }
 
     template<class T, int n> vec<T, n> operator*(const double rhs, const vec<T, n>& lhs) {
@@ -83,14 +105,27 @@ namespace tinyMath
         return ret;
     }
 
+     template<class T, int n> T dotProduct(const vec<T, n>& v1, const vec<T, n>& v2) {
+        T r = 0;
+        for(int i =0; i < n; i++)
+            r += v1[i] * v2[i];
+        return r;
+    }
+
     template<class T> vec<T, 3> cross(const vec<T, 3>& v1, const vec<T, 3>& v2) {
         return vec<T, 3>(v1.y*v2.z - v1.z*v2.y, v1.z*v2.x - v1.x*v2.z, v1.x*v2.y - v1.y*v2.x);
     }
 
     template<class T, int n> std::ostream& operator<<(std::ostream& out, const vec<T, n>& v) {
+        out << "[";
         for(int i=0; i < n; i++) {
-            out << v[i] << " ";
+            if(i < n - 1) {
+                out << v[i] << ", ";
+            } else {
+                out << v[i];
+            }
         }
+        out << "]";
         return out;
     }
 
@@ -106,13 +141,14 @@ namespace tinyMath
     {
         vec() = default;
         vec(T X, T Y): x(X), y(Y){}
+        vec(T V): x(V), y(V){}
         T& operator[](const int i) {
             assert(i >=0 && i < 2);
             return i == 0 ? x : y;
         }
         T operator[](const int i) const {
-        assert(i >=0 && i < 2);
-        return i == 0 ? x : y;
+            assert(i >=0 && i < 2);
+            return i == 0 ? x : y;
         }
         double norm2() const { return (*this)*(*this); }
         double norm() const {return std::sqrt(norm2()); }
@@ -127,6 +163,7 @@ namespace tinyMath
     {
         vec() = default;
         vec(T X, T Y, T Z): x(X), y(Y), z(Z){}
+        vec(T V): x(V), y(V), z(V){}
         T& operator[](const int i){
             assert(i >= 0 && i < 3);
             return i == 0 ? x : (i == 1) ? y : z;
@@ -154,6 +191,7 @@ namespace tinyMath
         vec() = default;
         vec(T X, T Y, T Z, T W)
             :x(X), y(Y), z(Z), w(W){}
+        vec(T V): x(V), y(V), x(V), w(V){}
         T operator[](const int i) const {
             assert(i >= 0 && i < 4);
             return i == 0 ? x :

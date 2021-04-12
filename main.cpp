@@ -4,7 +4,8 @@
 #include "Matrix.hpp"
 
 int main(int, char**) {
-    tinyMath::vec3f v = tinyMath::vec3f(1,1,1);
-    tinyMath::mat3f m = tinyMath::mat3f();
-    std::cout << m << std::endl;;
+    tinyMath::vec3f v1 = tinyMath::vec3f(2);
+    tinyMath::vec3f v2 = tinyMath::vec3f(4,5,6);
+    v1 -= v2;
+    std::cout << v1 << std::endl;;
 }
