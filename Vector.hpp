@@ -150,7 +150,7 @@ namespace tinyMath
             assert(i >=0 && i < 2);
             return i == 0 ? x : y;
         }
-        double norm2() const { return (*this)*(*this); }
+        double norm2() const { return dotProduct(*this, *this); }
         double norm() const {return std::sqrt(norm2()); }
         vec& normalize() {
             *this = *this / norm(); 
@@ -172,7 +172,7 @@ namespace tinyMath
             assert(i >= 0 && i < 3);
             return i == 0 ? x : (i == 1) ? y : z;
         }
-        double norm2() const { return (*this)*(*this); }
+        double norm2() const { return dotProduct(*this, *this); }
         double norm() const { return std::sqrt(norm2()); }
         vec& normalize() {
             *this = *this / norm(); 
@@ -208,7 +208,7 @@ namespace tinyMath
 
         }
 
-        double norm2() const { return (*this)*(*this); }
+        double norm2() const { return dotProduct(*this, *this); }
         double norm() const { return std::sqrt(norm2()); }
         vec& normalize() {
             *this = *this / norm(); 
