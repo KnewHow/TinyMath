@@ -156,6 +156,9 @@ namespace tinyMath
             *this = *this / norm(); 
             return *this;
         }
+        vec normalize() const {
+            return *this / norm();
+        }
         T x, y;
     };
 
@@ -177,6 +180,10 @@ namespace tinyMath
         vec& normalize() {
             *this = *this / norm(); 
             return *this;
+        }
+
+        vec normalize() const {
+            return *this / norm();
         }
 
         vec<T, 2> to2d() {
@@ -213,6 +220,10 @@ namespace tinyMath
         vec& normalize() {
             *this = *this / norm(); 
             return *this;
+        }
+
+        vec normalize() const {
+            return *this / norm();
         }
 
         T x, y, z, w;
