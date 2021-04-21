@@ -34,9 +34,28 @@ namespace tinyMath
         return ret;
     }
 
-     template<class T, int n> vec<T, n> operator*=(vec<T, n>& lhs, const vec<T, n>& rhs) {
+    template<class T, int n> vec<T, n> operator*(const double rhs, const vec<T, n>& lhs) {
+        vec<T, n> ret = lhs;
+        for(int i = n; i--; ret[i] *= rhs);
+        return ret;
+    }
+
+    template<class T, int n> vec<T, n> operator*(const vec<T, n>& lhs, const double rhs) {
+        vec<T, n> ret = lhs;
+        for(int i = n; i--; ret[i] *= rhs);
+        return ret;
+    }
+
+    template<class T, int n> vec<T, n> operator*=(vec<T, n>& lhs, const vec<T, n>& rhs) {
         for(int i = 0; i < n; i++) {
             lhs[i] = lhs[i] * rhs[i];
+        }
+        return lhs;
+    }
+
+    template<class T, int n> vec<T, n> operator*=(vec<T, n>& lhs, const double rhs) {
+        for(int i = 0; i < n; i++) {
+            lhs[i] = lhs[i] * rhs;
         }
         return lhs;
     }
@@ -69,19 +88,7 @@ namespace tinyMath
         return lhs;
     }
 
-    template<class T, int n> vec<T, n> operator*(const double rhs, const vec<T, n>& lhs) {
-        vec<T, n> ret = lhs;
-        for(int i = n; i--; ret[i] *= rhs);
-        return ret;
-    }
-
-    template<class T, int n> vec<T, n> operator*(const vec<T, n>& lhs, const T rhs) {
-        vec<T, n> ret = lhs;
-        for(int i = n; i--; ret[i] *= rhs);
-        return ret;
-    }
-
-    template<class T, int n> vec<T, n> operator/(const vec<T, n>& lhs, const T rhs) {
+    template<class T, int n> vec<T, n> operator/(const vec<T, n>& lhs, const double rhs) {
         vec<T, n> ret = lhs;
         for(int i = n; i--; ret[i] /= rhs);
         return ret;
