@@ -19,10 +19,10 @@ namespace tinyMath
             assert(i>=0 && i < n);
             return data[i];
         }
-        double norm2() const {
-            return (*this) * (*this);
+        T norm2() const {
+            return dotProduct(*this, *this);
         }
-        double norm() const {
+        T norm() const {
             return std::sqrt(norm2());
         }
         T data[n] = {};
@@ -75,13 +75,13 @@ namespace tinyMath
         return ret;
     }
 
-    template<class T, int n> vec<T, n> operator*(const vec<T, n>& lhs, const double rhs) {
+    template<class T, int n> vec<T, n> operator*(const vec<T, n>& lhs, const T rhs) {
         vec<T, n> ret = lhs;
         for(int i = n; i--; ret[i] *= rhs);
         return ret;
     }
 
-    template<class T, int n> vec<T, n> operator/(const vec<T, n>& lhs, const double rhs) {
+    template<class T, int n> vec<T, n> operator/(const vec<T, n>& lhs, const T rhs) {
         vec<T, n> ret = lhs;
         for(int i = n; i--; ret[i] /= rhs);
         return ret;
@@ -150,8 +150,8 @@ namespace tinyMath
             assert(i >=0 && i < 2);
             return i == 0 ? x : y;
         }
-        double norm2() const { return dotProduct(*this, *this); }
-        double norm() const {return std::sqrt(norm2()); }
+        T norm2() const { return dotProduct(*this, *this); }
+        T norm() const {return std::sqrt(norm2()); }
         vec& normalize() {
             *this = *this / norm(); 
             return *this;
@@ -175,8 +175,8 @@ namespace tinyMath
             assert(i >= 0 && i < 3);
             return i == 0 ? x : (i == 1) ? y : z;
         }
-        double norm2() const { return dotProduct(*this, *this); }
-        double norm() const { return std::sqrt(norm2()); }
+        T norm2() const { return dotProduct(*this, *this); }
+        T norm() const { return std::sqrt(norm2()); }
         vec& normalize() {
             *this = *this / norm(); 
             return *this;
@@ -215,8 +215,8 @@ namespace tinyMath
 
         }
 
-        double norm2() const { return dotProduct(*this, *this); }
-        double norm() const { return std::sqrt(norm2()); }
+        T norm2() const { return dotProduct(*this, *this); }
+        T norm() const { return std::sqrt(norm2()); }
         vec& normalize() {
             *this = *this / norm(); 
             return *this;
